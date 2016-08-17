@@ -24,10 +24,10 @@ Notation renaming := (assoc name).
 
 Fixpoint rename_t (eta : renaming) m (t : term m) : term m := 
   match t with
-    | Var y h    => Var _ y h
+    | Var y h    => Var y h
     | Cst c       => match eta ^^ c with
-                       | Some d => Cst _ d
-                       | None   => Cst _ c
+                       | Some d => Cst d
+                       | None   => Cst c
                      end
     | App f t1 t2 => App f (rename_t eta t1)  (rename_t eta t2)
   end.

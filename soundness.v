@@ -201,7 +201,7 @@ Proof.
           | simpl in n; destruct_notIn;
             apply fresh_csts_forceR with (c:=a)(d:=d); auto;
               set (K' := Kripke_new_csts K (csts_up K (csts K) a d));
-                assert (d = psem K' (Cst nil a) nil);
+                assert (d = psem K' (@Cst nil a) nil);
                   [ simpl; unfold csts_up; simpl; case_name; intuition congruence
                     | rewrite H2;
                       apply subst_force with (K:=K')(l:=nil); simpl; auto;

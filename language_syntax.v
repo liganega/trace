@@ -95,6 +95,9 @@ Inductive term (m : trace) : Set :=
 | Cst  : name -> term m
 | App  : function -> term m -> term m -> term m.
 
+Implicit Arguments Var [m].
+Implicit Arguments Cst [m].
+
 (** ** Pseudo-formulas *)
 
 (** Given a trace [m], [formula m] is the set of pseudo-formulae with free occurrence of

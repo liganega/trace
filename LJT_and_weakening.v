@@ -39,7 +39,7 @@ Inductive prove : context -> (formula nil) -> Type :=
 
   | ProofForallR : forall y (B : formula (y::nil)) Ga (a:name),
     a # oc_c (Forall y B :: Ga) ->
-    Ga |- [ nil ! (y, Cst nil a)::nil ] B -> 
+    Ga |- [ nil ! (y, @Cst nil a)::nil ] B -> 
     Ga |- (@Forall nil y B)
 
   where "Ga |- A" := (prove Ga A)
@@ -121,7 +121,7 @@ Proof.
         *{ rewrite <- rename_c_fresh with (a:=a)(a0:=a0).
            - rewrite <- rename_f_fresh with (a:=a)(a0:=a0); auto;
             set (eta0 := (a,a0) :: (a0, eta ** a) :: eta);
-            replace ((y, Cst nil a0) :: nil) with (rename_a eta0 ((y, Cst nil a) :: nil)).
+            replace ((y, @Cst nil a0) :: nil) with (rename_a eta0 ((y, @Cst nil a) :: nil)).
              +  rewrite <- rename_subst;
               [ apply weakening_gen with Ga; auto; apply sub_ctx_fresh_cst; auto
               | simpl; intros; auto].

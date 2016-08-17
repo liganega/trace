@@ -19,8 +19,8 @@ Require Import variable_sets.
 
 Fixpoint treloc  m (t: term m) l {struct t} : sub_name (ov_t t) l -> term l :=
   match t return sub_name (ov_t t) l -> term l with
-    | Var x _    => fun H => Var l x (H x (in_eq x nil))
-    | Cst c       => fun _ => Cst l c
+    | Var x _    => fun H => @Var l x (H x (in_eq x nil))
+    | Cst c       => fun _ => @Cst l c
     | App f t0 t1 => fun H =>
                      App f (treloc t0 (sub_ov_funL f t0 t1 H)) 
                            (treloc t1 (sub_ov_funR f t0 t1 H))

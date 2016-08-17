@@ -26,7 +26,7 @@ Inductive co_prove : context -> (formula nil) -> Type :=
   (cons B Ga) |~ C -> Ga |~ B --> C
 
 | co_ProofForallR : forall y (B : formula (y::nil)) Ga L,
-  (forall (c: name), c # L -> Ga |~ [nil ! (y,Cst nil c)::nil] B) -> 
+  (forall (c: name), c # L -> Ga |~ [nil ! (y,@Cst nil c)::nil] B) -> 
   Ga |~ (Forall y B)
 
   where "Ga |~ A" := (co_prove Ga A)
@@ -60,7 +60,7 @@ Inductive all_prove : context -> (formula nil) -> Type :=
   (cons B Ga) |+ C -> Ga |+ B --> C
 
 | all_ProofForallR : forall y (B : formula (y::nil)) Ga,
-  (forall (c: name), c # (oc_c Ga ++ oc_f B) -> Ga |+ [nil ! (y,Cst nil c)::nil] B) -> 
+  (forall (c: name), c # (oc_c Ga ++ oc_f B) -> Ga |+ [nil ! (y,@Cst nil c)::nil] B) -> 
   Ga |+ (Forall y B)
 
   where "Ga |+ A" := (all_prove Ga A)
@@ -112,8 +112,8 @@ Proof.
           set (eta' := (a,c) :: eta);
             rewrite <- (rename_c_fresh _ _ a c H3);
               rewrite <- (rename_f_fresh _ _ a c H0);
-                replace ((y, Cst nil c)::nil) with
-                  (rename_a ((a,c) :: eta) ((y, Cst nil a) :: nil));
+                replace ((y, @Cst nil c)::nil) with
+                  (rename_a ((a,c) :: eta) ((y, @Cst nil a) :: nil));
                   [ rewrite <- rename_subst;
                     [ apply all_prove_from_prove; auto
                       | simpl; auto
